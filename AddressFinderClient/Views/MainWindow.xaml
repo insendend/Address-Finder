@@ -1,0 +1,95 @@
+﻿<Window x:Class="AddressFinderClient.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:AddressFinderClient.ViewModels"
+        xmlns:conv="clr-namespace:AddressFinderClient.Converter"
+        mc:Ignorable="d"
+        Title="Address Finder" Height="350" Width="600" WindowStartupLocation="CenterScreen" FontSize="16">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <conv:BoolToBrushColorConverter x:Key="BoolToColor"/>
+        <Style x:Key="ColumnHeader" TargetType="Control">
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Server settings" Margin="5 5 5 10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Ip address" Padding="5 0"/>
+                    <TextBox Grid.Column="1" Text="{Binding Ip}" Margin="5 0"/>
+                </Grid>
+                <Grid Grid.Column="1" Margin="15 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Port" Padding="5 0"/>
+                    <TextBox Grid.Column="1" Text="{Binding Port}"/>
+                </Grid>
+                <Button Grid.Column="2" Margin="5 0" Content="Check" Command="{Binding CheckCommand}"/>
+                <Label Grid.Column="3" Padding="5 0"  Content="{Binding ServerState}" HorizontalContentAlignment="Center" Background="{Binding IsAvailable, Converter={StaticResource BoolToColor}}" Foreground="DarkGray" />
+            </Grid>
+        </GroupBox>
+        <Grid Margin="5" Grid.Row="1" IsEnabled="{Binding IsReady}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Country" Padding="5 0" Margin="5 0 0 0"/>
+                    <ComboBox Grid.Column="1" Margin="5 0" SelectedItem="{Binding SelectedCountry}" ItemsSource="{Binding Countries}" SelectedIndex="0"/>
+                </Grid>
+                <Grid Grid.Column="1" Margin="5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Post code" Padding="5 0" Margin="10 0 0 0"/>
+                    <TextBox Grid.Column="1" Text="{Binding PostCode}"/>
+                </Grid>
+                
+                <Button Grid.Column="2" Margin="5 0" Content="Find" Command="{Binding FindCommand}"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <DataGrid Margin="5" ItemsSource="{Binding Addresses}" SelectionMode="Single" ColumnHeaderStyle="{StaticResource ColumnHeader}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#0000">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="City" Binding="{Binding City}"/>
+                        <DataGridTextColumn Header="Street" Binding="{Binding Street}"/>
+                        <DataGridTextColumn Header="Full adress" Width="*" Binding="{Binding FullAddress}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
