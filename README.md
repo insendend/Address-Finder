@@ -6,8 +6,6 @@ Getting a list of address by ZIP code (using http request, tcp server). Server (
 
 ## Screenshots
 
-![ScreenShot](https://raw.github.com/insendend/Address-Finder/master/AddressFinder/Sceenshots/1.png)
-
-![ScreenShot](https://raw.github.com/insendend/Address-Finder/master/AddressFinder/Sceenshots/2.png)
-
-![ScreenShot](https://raw.github.com/insendend/Address-Finder/master/AddressFinder/Sceenshots/3.png)
+![ScreenShot](https://raw.github.com/insendend/Address-Finder/master/AddressFinderClient/Sceenshots/1.png)
+![ScreenShot](https://raw.github.com/insendend/Address-Finder/master/AddressFinderClient/Sceenshots/2.png)
+![ScreenShot](https://raw.github.com/insendend/Address-Finder/master/AddressFinderClient/Sceenshots/3.png)
